@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/issi-react-lab/static/css/main.5f9d461e.css",
+    "main.js": "/issi-react-lab/static/js/main.7c443d50.js",
+    "static/js/453.07a360c5.chunk.js": "/issi-react-lab/static/js/453.07a360c5.chunk.js",
+    "index.html": "/issi-react-lab/index.html",
+    "main.5f9d461e.css.map": "/issi-react-lab/static/css/main.5f9d461e.css.map",
+    "main.7c443d50.js.map": "/issi-react-lab/static/js/main.7c443d50.js.map",
+    "453.07a360c5.chunk.js.map": "/issi-react-lab/static/js/453.07a360c5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5f9d461e.css",
+    "static/js/main.7c443d50.js"
+  ]
+}
