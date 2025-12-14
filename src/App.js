@@ -1,23 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import 'milligram'
+import Header from './Header';
+import Footer from './Footer';
+import MovieList from './MovieList';
+import MovieForm from './MovieForm';
+
+import { useState } from "react";
 
 function App() {
+  const [movies, setMovies] = useState([]);
+
+  const onAddMovie = (movie) => {
+    setMovies([ ...movies, movie ]);
+  }
+
+  const onDeleteMovies = () => {
+    const newMovies = movies.filter((m) => !m.markedForDeletion);
+
+    setMovies(newMovies);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <main>
+        <div className="container">
+          <h2>Titles</h2>
+          <div className="row">
+            <MovieList movies={movies}
+              onDeleteMovies={onDeleteMovies}
+            />
+            <MovieForm onAddMovie={onAddMovie} />
+          </div>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }
