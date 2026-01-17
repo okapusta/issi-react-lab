@@ -1,9 +1,9 @@
 import './App.css';
 import 'milligram'
-import Header from './Header';
-import Footer from './Footer';
-import MovieList from './MovieList';
-import MovieForm from './MovieForm';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import MovieList from './components/MovieList';
+import MovieForm from './components/MovieForm';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { useState, useEffect } from "react";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MovieModel from "./models/MovieModel";
+import MovieModel from "../models/MovieModel";
 import MovieErrors from "./MovieErrors";
 
 const MovieForm = ({ onAddMovie }) => {
