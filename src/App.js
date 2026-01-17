@@ -33,9 +33,18 @@ function App() {
   }
 
   const onDeleteMovies = () => {
-    const newMovies = movies.filter((m) => !m.markedForDeletion);
-
-    setMovies(newMovies);
+    const promises = movies.filter((m) => m.markedForDeletion).map(m => {
+      return fetch(`http://localhost:8888/movies/${m.id}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )});
+    Promise.all(promises).then(() => {
+      fetchMovies();
+      toast("Successfully removed movies!");
+    })
   }
 
   const fetchMovies = async () => {
