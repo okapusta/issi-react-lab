@@ -42,7 +42,7 @@ const MovieForm = ({ onAddMovie }) => {
     if (movie.validate()) {
       setTitle('')
       setYear('')
-      setActors('')
+      // setActors('')
       setDirector('')
       setDescription('')
 
@@ -63,8 +63,8 @@ const MovieForm = ({ onAddMovie }) => {
           <label htmlFor="year">Year</label>
           <input type="text" name="year"  onChange={(e) => onChange('year', e.target.value) } value={year} />
 
-          <label htmlFor="actors">Actors</label>
-          <input type="text" name="actors" onChange={(e) => onChange('actors', e.target.value) } value={actors} />
+          {/* <label htmlFor="actors">Actors</label>
+          <input type="text" name="actors" onChange={(e) => onChange('actors', e.target.value) } value={actors} /> */}
 
           <label htmlFor="director">Director</label>
           <input type="text" name="director" onChange={(e) => onChange('director', e.target.value) } value={director} />
