@@ -38,4 +38,11 @@ footer {
   color: #6c757d;
   padding: 1rem 0;
   text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.error {
+  color: red;
 }

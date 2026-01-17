@@ -1,13 +1,13 @@
 import React from "react";
 
-const MovieErrors = ({ errors }) => {
+const ValidationErrors = ({ errors }) => {
   const keys = Object.keys(errors);
 
   if (!keys.length) return null;
 
   return (
     <>
-      <ul>
+      <ul className="error">
         {
           keys.map((key) => <li key={key}>{key} - {errors[key]}</li>)
         }
@@ -16,4 +16,4 @@ const MovieErrors = ({ errors }) => {
   )
 }
 
-export default MovieErrors;
+export default ValidationErrors;

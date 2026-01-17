@@ -5,23 +5,20 @@ import Movie from "./Movie";
 const MovieList = ({ movies, onDeleteMovies }) => {
   return (
     <div className="row">
-      <div className="container">
-
-        <div className="container movie-list-container">
-          <ul id="movie-list">
-            {
-              movies.map((movie, i) => <Movie movie={movie} key={`movie-${i}`}/>)
-            }
-          </ul>
+      <div className="container movie-list-container" style={{'overflow-y': 'auto'}}>
+        <ul id="movie-list">
           {
-            movies.length > 0 && (
-              <button onClick={onDeleteMovies}>
-                <i className="fa-solid fa-trash"></i>
-                Delete selected movies
-              </button>
-            )
+            movies.map((movie, i) => <Movie movie={movie} key={`movie-${i}`}/>)
           }
-        </div>
+        </ul>
+        {
+          movies.length > 0 && (
+            <button onClick={onDeleteMovies}>
+              <i className="fa-solid fa-trash"></i>
+              Delete selected movies
+            </button>
+          )
+        }
       </div>
     </div>
   )

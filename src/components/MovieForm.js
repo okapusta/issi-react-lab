@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import MovieModel from "../models/MovieModel";
-import MovieErrors from "./MovieErrors";
+import ValidationErrors from "./ValidationErrors";
 
-const MovieForm = ({ onAddMovie }) => {
+import { toast } from 'react-toastify';
+
+const MovieForm = ({ fetchMovies, hideForms }) => {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
   const [actors, setActors] = useState('');
@@ -52,19 +54,35 @@ const MovieForm = ({ onAddMovie }) => {
     setErrors(movie.errors);
   }
 
+    const onAddMovie = async (movie) => {
+      const response = await fetch(`${process.env.REACT_APP_API_HOST}/movies`, {
+        method: "POST",
+        body: JSON.stringify({
+          title: movie.title,
+          year: movie.year,
+          description: movie.description,
+          director: movie.director,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      if (response.ok) {
+        fetchMovies();
+        toast("Successfully added a new movie!");
+      }
+    }
+
   return (
     <div className="row">
       <div className="container add-movie">
-        <MovieErrors errors={errors} />
+        <ValidationErrors errors={errors} />
         <form id="add-movie-form" name="add-movie-form" onSubmit={onSubmit}>
           <label htmlFor="title">Title</label>
           <input type="text" name="title" onChange={(e) => onChange('title', e.target.value) } value={title} />
 
           <label htmlFor="year">Year</label>
           <input type="text" name="year"  onChange={(e) => onChange('year', e.target.value) } value={year} />
-
-          {/* <label htmlFor="actors">Actors</label>
-          <input type="text" name="actors" onChange={(e) => onChange('actors', e.target.value) } value={actors} /> */}
 
           <label htmlFor="director">Director</label>
           <input type="text" name="director" onChange={(e) => onChange('director', e.target.value) } value={director} />
@@ -75,6 +93,10 @@ const MovieForm = ({ onAddMovie }) => {
           <button type="submit">
             <i className="fa-solid fa-file-circle-plus"></i>
             Add
+          </button>
+          &nbsp;
+          <button onClick={hideForms}>
+            Cancel
           </button>
         </form>
       </div>

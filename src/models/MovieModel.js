@@ -1,9 +1,8 @@
-export default class MovieModel {
-  static generateUUID() {
-    return Math.floor(Math.random() * Date.now()).toString(36);
-  }
-
+import BaseModel from "./BaseModel";
+export default class MovieModel extends BaseModel {
   constructor(title, year, actors, director, description) {
+    super();
+
     this.id = MovieModel.generateUUID();
 
     this.title = title;
@@ -11,7 +10,6 @@ export default class MovieModel {
     this.actors = actors;
     this.director = director;
     this.description = description;
-
 
     this.markedForDeletion = false;
     this.errors = {};
