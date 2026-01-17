@@ -4,14 +4,32 @@ import Header from './Header';
 import Footer from './Footer';
 import MovieList from './MovieList';
 import MovieForm from './MovieForm';
+import { ToastContainer, toast } from 'react-toastify';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [movies, setMovies] = useState([]);
 
-  const onAddMovie = (movie) => {
-    setMovies([ ...movies, movie ]);
+  // TBD handle actors
+  // { "title": "Tester dupa 123", "year": 1999, "actors": "Testing Actor", "description": "Testing 123", "director": "Tester" }
+  const onAddMovie = async (movie) => {
+    const response = await fetch('http://localhost:8888/movies', {
+      method: "POST",
+      body: JSON.stringify({
+        title: movie.title,
+        year: movie.year,
+        description: movie.description,
+        director: movie.director,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response.ok) {
+      fetchMovies();
+      toast("Successfully added a new movie!");
+    }
   }
 
   const onDeleteMovies = () => {
@@ -19,6 +37,19 @@ function App() {
 
     setMovies(newMovies);
   }
+
+  const fetchMovies = async () => {
+    const response = await fetch('http://localhost:8888/movies')
+    if (response.ok) {
+      const json = await response.json();
+
+      setMovies(json.movies);
+    }
+  }
+
+  useEffect(() => {
+    fetchMovies();
+  }, [])
 
   return (
     <div className="App">
@@ -35,6 +66,7 @@ function App() {
         </div>
       </main>
       <Footer />
+      <ToastContainer />
     </div>
   );
 }

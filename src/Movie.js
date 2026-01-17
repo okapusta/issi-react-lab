@@ -6,12 +6,12 @@ const Movie = ({ movie }) => {
   }
 
   return (
-    <>
+    <div>
       <li key={movie.title}>
         <input type='checkbox' onChange={onChange}></input>
-        { movie.title }, { movie.year }, { movie.actors }
+        { movie.title }, { movie.year }
       </li>
-    </>
+    </div>
   )
 }
 

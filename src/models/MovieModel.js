@@ -3,12 +3,14 @@ export default class MovieModel {
     return Math.floor(Math.random() * Date.now()).toString(36);
   }
 
-  constructor(title, year, actors) {
+  constructor(title, year, actors, director, description) {
     this.id = MovieModel.generateUUID();
 
     this.title = title;
     this.year = year;
     this.actors = actors;
+    this.director = director;
+    this.description = description;
 
 
     this.markedForDeletion = false;
@@ -24,9 +26,9 @@ export default class MovieModel {
       this.errors['year'] = 'must be present'
     }
 
-    if (this.actors.length < 1) {
-      this.errors['actors'] = 'must be present'
-    }
+    // if (this.actors.length < 1) {
+    //   this.errors['actors'] = 'must be present'
+    // }
 
     return Object.keys(this.errors).length <= 0;
   }

@@ -6,6 +6,8 @@ const MovieForm = ({ onAddMovie }) => {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
   const [actors, setActors] = useState('');
+  const [director, setDirector] = useState('');
+  const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({});
 
   const onChange = (field, value) => {
@@ -15,7 +17,11 @@ const MovieForm = ({ onAddMovie }) => {
       case 'year':
         return setYear(value);
       case 'actors':
-        return setActors(value)
+        return setActors(value);
+      case 'director':
+        return setDirector(value);
+      case 'description':
+        return setDescription(value);
       default:
         console.error("Invalid operation")
     }
@@ -23,17 +29,22 @@ const MovieForm = ({ onAddMovie }) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    setErrors([]);
 
     const movie = new MovieModel(
       title,
       year,
       actors,
+      director,
+      description,
     );
 
     if (movie.validate()) {
       setTitle('')
       setYear('')
       setActors('')
+      setDirector('')
+      setDescription('')
 
       return onAddMovie(movie);
     }
@@ -54,6 +65,12 @@ const MovieForm = ({ onAddMovie }) => {
 
           <label htmlFor="actors">Actors</label>
           <input type="text" name="actors" onChange={(e) => onChange('actors', e.target.value) } value={actors} />
+
+          <label htmlFor="director">Director</label>
+          <input type="text" name="director" onChange={(e) => onChange('director', e.target.value) } value={director} />
+
+          <label htmlFor="description">Description</label>
+          <input type="text" name="description" onChange={(e) => onChange('description', e.target.value) } value={description} />
 
           <button type="submit">
             <i className="fa-solid fa-file-circle-plus"></i>
