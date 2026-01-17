@@ -14,7 +14,7 @@ function App() {
   // TBD handle actors
   // { "title": "Tester dupa 123", "year": 1999, "actors": "Testing Actor", "description": "Testing 123", "director": "Tester" }
   const onAddMovie = async (movie) => {
-    const response = await fetch('http://localhost:8888/movies', {
+    const response = await fetch(`http://${process.env.REACT_APP_API_HOST}/movies`, {
       method: "POST",
       body: JSON.stringify({
         title: movie.title,
@@ -34,7 +34,7 @@ function App() {
 
   const onDeleteMovies = () => {
     const promises = movies.filter((m) => m.markedForDeletion).map(m => {
-      return fetch(`http://localhost:8888/movies/${m.id}`, {
+      return fetch(`http://${process.env.REACT_APP_API_HOST}/movies/${m.id}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,8 @@ function App() {
   }
 
   const fetchMovies = async () => {
-    const response = await fetch('http://localhost:8888/movies')
+    console.log('env', process.env)
+    const response = await fetch(`http://${process.env.REACT_APP_API_HOST}/movies`)
     if (response.ok) {
       const json = await response.json();
 
