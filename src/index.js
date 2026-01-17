@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Movie from './routes/movie/Movie'
+import Movie from './routes/movies/Movie'
+import Actors from './routes/actors/Actors'
+import Actor from './routes/actors/Actor'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route  } from "react-router";
 
@@ -12,7 +14,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="movie/:id" element={<Movie />} />
+        <Route path="movies/:id" element={<Movie />} />
+        <Route path="actors" element={<Actors />} />
+        <Route path="actors/:id" element={<Actor />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
