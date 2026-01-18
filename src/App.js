@@ -15,6 +15,10 @@ function App() {
   const [isAddingMovie, setIsAddingMovie] = useState(false);
 
   const onDeleteMovies = () => {
+    const result = window.confirm("Are you sure you want to delete selected movies?");
+
+    if (!result) return;
+
     const promises = movies.filter((m) => m.markedForDeletion).map(m => {
       return fetch(`${process.env.REACT_APP_API_HOST}/movies/${m.id}`, {
         method: "DELETE",
