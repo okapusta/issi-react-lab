@@ -5,7 +5,7 @@ import Select from 'react-select'
 
 import { toast } from 'react-toastify';
 
-const MovieForm = ({ fetchMovies, hideForms }) => {
+const MovieForm = ({ fetchMovies, onCancel, movie }) => {
   const [title, setTitle] = useState('');
   const [year, setYear] = useState('');
   const [actors, setActors] = useState([]);
@@ -13,6 +13,7 @@ const MovieForm = ({ fetchMovies, hideForms }) => {
   const [director, setDirector] = useState('');
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({});
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const onChange = (field, value) => {
     switch(field) {
@@ -102,12 +103,22 @@ const MovieForm = ({ fetchMovies, hideForms }) => {
     if (response.ok) {
       const json = await response.json();
 
-      setActorOptions(json.actors.map(a => ({ label: `${a['name']} ${a['surname']}`, value: a['id'] })));
+      setActorOptions(json.actors.map(a => mapActors(a)));
     }
   }
 
+  const mapActors = (a) => ({ label: `${a['name']} ${a['surname']}`, value: a['id'] });
+
   useEffect(() => {
-    fetchActors()
+    fetchActors();
+    if (movie) {
+      setIsUpdating(true);
+      setTitle(movie.title);
+      setDescription(movie.description);
+      setDirector(movie.director);
+      setYear(movie.year);
+      setActors(movie.actors.map(a => mapActors(a)));
+    }
   }, []);
 
   return (
@@ -137,12 +148,14 @@ const MovieForm = ({ fetchMovies, hideForms }) => {
           <br />
           <button type="submit">
             <i className="fa-solid fa-file-circle-plus"></i>
-            Add
+            { isUpdating ? 'Update' : 'Add' }
           </button>
-          &nbsp;
-          <button onClick={hideForms}>
-            Cancel
-          </button>
+          <>
+            &nbsp;
+            <button onClick={onCancel}>
+              Cancel
+            </button>
+          </>
         </form>
       </div>
     </div>

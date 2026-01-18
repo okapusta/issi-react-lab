@@ -89,7 +89,7 @@ function App() {
                   </button>
                 </>
               }
-              { isAddingMovie && <MovieForm fetchMovies={fetchMovies} hideForms={hideForms} /> }
+              { isAddingMovie && <MovieForm fetchMovies={fetchMovies} onCancel={hideForms} /> }
               { isAddingActor && <ActorForm hideForms={hideForms} /> }
             </div>
           </div>

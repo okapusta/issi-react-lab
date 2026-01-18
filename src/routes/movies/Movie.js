@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import MovieForm from '../../components/MovieForm';
 
 import { ToastContainer } from 'react-toastify';
 import { useParams } from "react-router";
@@ -37,7 +38,7 @@ const Movie = ({ id }) => {
         <div className="container">
           <h2>{movie.title}</h2>
           <div className="row">
-            Hello world
+            <MovieForm movie={movie} onCancel={() => window.history.back() }/>
           </div>
         </div>
       </main>
