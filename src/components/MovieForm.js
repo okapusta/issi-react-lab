@@ -40,7 +40,7 @@ const MovieForm = ({ fetchMovies, onCancel, movie }) => {
     event.preventDefault();
     setErrors([]);
 
-    const movie = new MovieModel(
+    const model = new MovieModel(
       title,
       year,
       actors,
@@ -48,17 +48,19 @@ const MovieForm = ({ fetchMovies, onCancel, movie }) => {
       description,
     );
 
-    if (movie.validate()) {
+    if (model.validate()) {
       setTitle('')
       setYear('')
       setActors([])
       setDirector('')
       setDescription('')
 
-      return onAddMovie(movie);
+      if (isUpdating) return onUpdateMovie(model)
+
+      return onAddMovie(model);
     }
 
-    setErrors(movie.errors);
+    setErrors(model.errors);
   }
 
   const onAddMovie = async (movie) => {
@@ -80,6 +82,29 @@ const MovieForm = ({ fetchMovies, onCancel, movie }) => {
         assignActor(json.movie.id, actor.value);
       })
       fetchMovies();
+      toast("Successfully added a new movie!");
+    }
+  }
+
+  const onUpdateMovie = async (updating) => {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/movies/${movie.id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: updating.title,
+        year: updating.year,
+        description: updating.description,
+        director: updating.director,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response.ok) {
+      const json = await response.json();
+      actors.forEach((actor) => {
+        assignActor(json.movie.id, actor.value);
+      })
+      window.location.href = '/';
       toast("Successfully added a new movie!");
     }
   }
