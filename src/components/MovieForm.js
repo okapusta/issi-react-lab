@@ -78,9 +78,7 @@ const MovieForm = ({ fetchMovies, onCancel, movie }) => {
     })
     if (response.ok) {
       const json = await response.json();
-      actors.forEach((actor) => {
-        assignActor(json.movie.id, actor.value);
-      })
+      assignActors(json.movie.id, actors.map(a => a.value));
       fetchMovies();
       toast("Successfully added a new movie!");
     }
@@ -101,18 +99,16 @@ const MovieForm = ({ fetchMovies, onCancel, movie }) => {
     })
     if (response.ok) {
       const json = await response.json();
-      actors.forEach((actor) => {
-        assignActor(json.movie.id, actor.value);
-      })
+      await assignActors(json.movie.id, actors.map(a => a.value));
       window.location.href = '/';
       toast("Successfully added a new movie!");
     }
   }
 
   // TODO: Accept multiple actor IDs
-  const assignActor = async (movieId, actorId) => {
+  const assignActors = async (movieId, actorIds) => {
     const body = JSON.stringify({
-      actor_id: actorId,
+      actor_ids: actorIds,
     })
     await fetch(`${process.env.REACT_APP_API_HOST}/movies/${movieId}/actors`, {
       method: "PUT",
